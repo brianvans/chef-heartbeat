@@ -21,16 +21,7 @@ version_string = node['platform_family'] == 'rhel' ? "#{node['heartbeat']['versi
 
 case node['platform_family']
 when 'debian'
-  package 'apt-transport-https'
-
-  # apt repository configuration
-  apt_repository 'beats' do
-    uri node['heartbeat']['apt']['uri']
-    components node['heartbeat']['apt']['components']
-    key node['heartbeat']['apt']['key']
-    distribution node['heartbeat']['apt']['distribution']
-    action node['heartbeat']['apt']['action']
-  end
+  include_recipe 'elastic_beats_repo::apt' if node['heartbeat']['setup_repo']
 
   unless node['heartbeat']['ignore_version'] # ~FC023
     apt_preference node['heartbeat']['package_name'] do
@@ -38,18 +29,8 @@ when 'debian'
       pin_priority '700'
     end
   end
-
-when 'rhel'
-  # yum repository configuration
-  yum_repository 'beats' do
-    description node['heartbeat']['yum']['description']
-    baseurl node['heartbeat']['yum']['baseurl']
-    gpgcheck node['heartbeat']['yum']['gpgcheck']
-    gpgkey node['heartbeat']['yum']['gpgkey']
-    enabled node['heartbeat']['yum']['enabled']
-    metadata_expire node['heartbeat']['yum']['metadata_expire']
-    action node['heartbeat']['yum']['action']
-  end
+when 'fedora', 'rhel', 'amazon'
+  include_recipe 'elastic_beats_repo::yum' if node['heartbeat']['setup_repo']
 
   unless node['heartbeat']['ignore_version'] # ~FC023
     yum_version_lock node['heartbeat']['package_name'] do

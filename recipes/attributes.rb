@@ -18,10 +18,6 @@
 #
 
 major_version = node['heartbeat']['version'].split('.')[0]
-node.default['heartbeat']['yum']['baseurl'] = "https://artifacts.elastic.co/packages/#{major_version}.x/yum"
-node.default['heartbeat']['yum']['gpgkey'] = 'https://artifacts.elastic.co/GPG-KEY-elasticsearch'
-node.default['heartbeat']['apt']['uri'] = "https://artifacts.elastic.co/packages/#{major_version}.x/apt"
-node.default['heartbeat']['apt']['key'] = 'https://artifacts.elastic.co/GPG-KEY-elasticsearch'
 
 # The package and service weren't namespaced with "-elastic" prior to 6.x
 if major_version.to_i < 6
@@ -31,3 +27,5 @@ else
   node.default['heartbeat']['package_name'] = 'heartbeat-elastic'
   node.default['heartbeat']['service_name'] = 'heartbeat-elastic'
 end
+
+node.default['elastic_beats_repo']['version'] = node['heartbeat']['version'] if node['heartbeat']['setup_repo']

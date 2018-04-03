@@ -3,6 +3,7 @@ default['heartbeat']['release'] = '1'
 default['heartbeat']['disable_service'] = false
 default['heartbeat']['package_url'] = 'auto'
 default['heartbeat']['package_force_overwrite'] = true
+default['heartbeat']['setup_repo'] = true
 
 default['heartbeat']['ignore_version'] = false
 default['heartbeat']['notify_restart'] = true

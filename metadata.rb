@@ -9,6 +9,7 @@ source_url 'https://github.com/vkhatri/chef-heartbeat' if respond_to?(:source_ur
 issues_url 'https://github.com/vkhatri/chef-heartbeat/issues' if respond_to?(:issues_url)
 
 depends 'apt'
+depends 'elastic_beats_repo'
 depends 'yum'
 depends 'yum-plugin-versionlock', '>= 0.1.2'
 
