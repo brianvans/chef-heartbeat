@@ -71,6 +71,7 @@ This cookbook was tested on CentOS & Ubuntu Linux and expected to work on other 
 
 * `default['heartbeat']['monitors_dir']` (default: `/etc/heartbeat/conf.d`): monitors configuration file directory
 
+* `default['heartbeat']['setup_repo']` (default: `true`): whether to manage the beats apt/yum repository
 
 ## Contributing
 
